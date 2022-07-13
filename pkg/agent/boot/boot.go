@@ -12,8 +12,8 @@ import (
 
 // @author Xiamao1997 2022-06-20
 
-// Start Native Agent
-func Start(ip string, port string, name string) error {
+// Start native agent
+func Start(ip string, port string, name string, home string, version string) error {
 	if ip == "" {
 		return errors.New("tunnel server ip is empty")
 	}
@@ -22,10 +22,10 @@ func Start(ip string, port string, name string) error {
 	}
 	if name == "" {
 		name = uuid.NewV4().String()
-		log.Println("Randomly generated the native agent name:", name)
+		log.Println("Randomly generated the NativeAgent name:", name)
 	}
 
-	nativeAgent := agent.NewNativeAgent(ip, port, name)
+	nativeAgent := agent.NewNativeAgent(ip, port, name, home, version)
 
 	// Monitor system signals
 	sigChan := NewOSWatcher(syscall.SIGHUP, syscall.SIGINT, syscall.SIGTERM)
@@ -47,6 +47,5 @@ func Start(ip string, port string, name string) error {
 func NewOSWatcher(sigs ...os.Signal) chan os.Signal {
 	sigChan := make(chan os.Signal, 1)
 	signal.Notify(sigChan, sigs...)
-
 	return sigChan
 }

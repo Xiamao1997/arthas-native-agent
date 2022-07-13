@@ -1,8 +1,8 @@
 package main
 
 import (
+	"github.com/sirupsen/logrus"
 	"github.com/urfave/cli/v2"
-	"log"
 	"os"
 	"time"
 )
@@ -11,10 +11,10 @@ import (
 
 func main() {
 	app := &cli.App{
-		Name:        "arthas-native-boot",
+		Name:        "arthas-native-agent",
 		Version:     "0.1.0",
-		Usage:       "Native Agent is for cluster management.",
-		Description: "Native Agent is for cluster management.",
+		Usage:       "Native agent is for cluster management.",
+		Description: "Native agent is for cluster management.",
 		Compiled:    time.Now(),
 		Action:      cli.ShowAppHelp,
 		Commands: []*cli.Command{
@@ -22,6 +22,6 @@ func main() {
 		},
 	}
 	if err := app.Run(os.Args); err != nil {
-		log.Fatalln("Failed to run Native Agent App:", err)
+		logrus.Fatalln("Failed to run native agent app:", err)
 	}
 }
